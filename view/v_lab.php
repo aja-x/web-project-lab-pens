@@ -114,11 +114,12 @@
                                 $query="SELECT * FROM m_lokasi";
                                 $result=$db->query($query);
                                 while ($data=$result->fetch_array(MYSQLI_BOTH)) {
-                                    echo "<option value='".$data[0]."'>".$data[1]."</option>";
+                                    echo "<option value='".$data[0]."'>".$data[1].
+                                    "</option>";
                                 }
                             ?>
                         </select><br>
-                    <a href="?v=v_lab&act=view" class="btn btn-danger">Batal</a>
+                    <a href="?v=v_lab&act=view&id=C102" class="btn btn-danger">Batal</a>
                     <button type="reset">Reset</button>
                     <button type="submit" name="add_lab">Tambah</button>
                 </form>
@@ -130,13 +131,15 @@
                 } else {
                     require 'config/dbconn.php';
                     $id=$_GET['id'];
-                    $query="SELECT * FROM tb_lab JOIN m_lokasi ON m_lokasi.id_lokasi=tb_lab.id_lokasi WHERE id_lab='$id'";
+                    $query="SELECT * FROM tb_lab JOIN m_lokasi ON m_lokasi.id_lokasi=tb_lab.id_lokasi WHERE id_lab='$id' ";
                     $result=$db->query($query);
                     if ($result->num_rows != 1) {
                         include '404.php';
                     } else {
                         $data=$result->fetch_array(MYSQLI_BOTH);
 ?>
+
+                        
                         <form action="?p=p_lab&act=edit" method="post"><br>
                             ID Lab: <input type="text" name="id_lab" value="<?php echo $data[0] ?>"><br>
                             Nama Lab: <input type="text" name="nama_lab" value="<?php echo $data[1] ?>"><br>
@@ -153,16 +156,18 @@
                                         }
                                     ?>
                                 </select><br>
-                            <a href="?v=v_lab&act=view" class="btn btn-danger">Batal</a>
+                             <a href="?v=v_lab&act=view&id=<?php echo $data[0] ?>" class="btn btn-danger">Batal</a>
                             <button type="submit" name="edit_lab" class="btn btn-primary">Edit</button>
                         </form>
 <?php
                     }
                 }
                 break;
+
             default:
                 include '404.php';
                 break;
         }
     }
 ?>
+<h4>jadwal lab </h4>

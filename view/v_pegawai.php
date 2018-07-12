@@ -6,6 +6,10 @@
         switch ($page) {
             case 'view':
 ?>
+
+ 
+
+
                 <a href="?v=v_pegawai&act=add"><button class="btn btn-primary">Tambah Pegawai</button></a><br><br>
 <?php
                 require 'config/dbconn.php';
@@ -13,6 +17,8 @@
                 $result=$db->query($query);
                 if ($result->num_rows > 0) {
 ?>
+
+
                 <table class="table table-striped table-bordered table-hover">
                     <thead>
                         <tr>
@@ -30,6 +36,7 @@
                     </thead>
                     <tbody>
 <?php
+
 
                     while ($data=$result->fetch_array(MYSQLI_BOTH)) {
 ?>
@@ -51,6 +58,7 @@
 <?php
                     }
 ?>
+
                     </tbody>
                 </table>
 <?php
@@ -62,6 +70,7 @@
                 break;
             case 'add':
 ?>
+
                 <form action="?p=p_pegawai&act=add" method="post">
                     NIP: <input type="number" name="nip" required><br>
                     Nama: <input type="text" name="nama_pg"><br>
@@ -101,8 +110,10 @@
                     <a href="?v=v_pegawai&act=view" class="btn btn-danger">Batal</a>
                     <button type="reset">Reset</button>
                     <button type="submit" name="add_pg">Tambah</button>
-                </form>
+                </form>         
 <?php
+
+
                 break;
             case 'edit':
                 if (!isset($_GET['id'])) {
@@ -117,6 +128,8 @@
                     } else {
                         $data=$result->fetch_array(MYSQLI_BOTH);
 ?>
+
+
                         <form action="?p=p_pegawai&act=edit" method="post"><br>
                             NIP: <input type="text" name="nip" value="<?php echo $data['nip']; ?>"><br>
                             Nama: <input type="text" name="nama_pg" value="<?php echo $data['nama_pg']; ?>"><br>
@@ -160,6 +173,8 @@
                             <a href="?v=v_pegawai&act=view" class="btn btn-danger">Batal</a>
                             <button type="submit" name="edit_pg">Edit</button>
                         </form>
+
+
 <?php
                     }
                 }

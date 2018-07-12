@@ -19,8 +19,23 @@
             $query="SELECT id_lab, nama_lab FROM tb_lab WHERE id_lokasi=1";
             $result=$db->query($query);
             if ($result->num_rows > 0) {
-                while ($data = $result->fetch_array(MYSQLI_BOTH)) {
+                while ($data = $result->fetch_array(MYSQLI_BOTH)) 
+                {
+                    $rel= $_GET['v'];
+                   if ($rel=='v_lab' || $rel=="?v=v_home&act=view" ) 
+                   {
+                    
                     echo "<a href='?v=v_lab&act=view&id=".$data['id_lab']."'>Lab ".$data['nama_lab']."</a>";
+                   }
+                   else  if ($rel=='v_jadwal') { 
+                      
+                       echo "<a href='?v=v_jadwal&act=view&id=".$data['id_lab']."'>Lab ".$data['nama_lab']."</a>";
+                   }
+                   else 
+                   {
+                      echo "<a href='?v=v_lab&act=view&id=".$data['id_lab']."'>Lab ".$data['nama_lab']."</a>";
+                   }
+
                 }
             } else {
                 echo "<h4 style='color:white;'>Tidak ada lab di gedung D4</h4>";
@@ -33,16 +48,40 @@
             $query="SELECT id_lab, nama_lab FROM tb_lab WHERE id_lokasi=2";
             $result=$db->query($query);
             if ($result->num_rows > 0) {
-                while ($data = $result->fetch_array(MYSQLI_BOTH)) {
+                while ($data = $result->fetch_array(MYSQLI_BOTH)) 
+                {
+                    $rel= $_GET['v'];
+                   if ($rel=='v_lab' || $rel=="?v=v_home&act=view") 
+                   {
+                 
                     echo "<a href='?v=v_lab&act=view&id=".$data['id_lab']."'>Lab ".$data['nama_lab']."</a>";
+                   }
+                   else  if ($rel=='v_jadwal') { 
+                      
+                       echo "<a href='?v=v_jadwal&act=view&id=".$data['id_lab']."'>Lab ".$data['nama_lab']."</a>";
+                   }
+                   else
+                   {
+                      echo "<a href='?v=v_lab&act=view&id=".$data['id_lab']."'>Lab ".$data['nama_lab']."</a>";
+                   }
+
                 }
             } else {
-                echo "<h4 style='color:white;'>Tidak ada lab di gedung S2</h4>";
+                echo "<h4 style='color:white;'>Tidak ada lab di gedung s2</h4>";
             }
+
             $db->close();
         ?>
+        <?php
+         if($rel=='v_lab'){
+                echo "<a href='?v=v_lab&act=add'><button class='btn btn-primary'>Tambah Lab</button></a>";
+            }
+            else if ($rel=='v_jadwal'){
+                echo "<a href='?v=v_jadwal&act=add'><button class='btn btn-primary'>Tambah Jadwal</button></a>";
+            }  
+        ?>
 
-        <a href="?v=v_lab&act=add"><button class="btn btn-primary">Tambah Lab</button></a><br><br>
+
     </div>
     <!-- Page content -->
     <div class="main">
@@ -50,11 +89,12 @@
         <nav class="navbar navbar-default">
         <div class="container-fluid">
             <div class="navbar-header">
-                <a class="navbar-brand" href="?">Home</a>
+                <a class="navbar-brand" href="?v=v_home&act=view">Home</a>
             </div>
             <ul class="nav navbar-nav">
                 <!-- <li><a href="?v=v_lab&act=view">Lab</a></li> -->
                 <li><a href="?v=v_pegawai&act=view">Pegawai</a></li>
+                <li><a href='?v=v_jadwal&act=view&id=c102'>Jadwal</a></li>
             </ul>
         </div>
         </nav>

@@ -1,9 +1,9 @@
 <?php
-    $config=parse_ini_file('db.ini');
-    $host=$config['host'];
-    $username=$config['username'];
-    $password=$config['password'];
-    $dbname=$config['dbname'];
+ 
+    $host='localhost';
+    $username='root';
+    $password="";
+    $dbname='laboratorium2';
     try{
         $db=new mysqli($host, $username, $password, $dbname);
     } catch (Exception $e){

@@ -19,7 +19,7 @@
                         echo $e->error;
                     }
                     $db->close();
-                    header("Location:?v=v_lab&act=view");
+                    header("Location:?v=v_lab&act=view&id=$id_lab");
                 }
                 break;
             case 'edit':
@@ -37,7 +37,7 @@
                         echo $e->error;
                     }
                     $db->close();
-                    header("Location:?v=v_lab&act=view");
+                    header("Location:?v=v_lab&act=view&id=$id_lab");
                 }
                 break;
             case 'delete':
@@ -55,7 +55,7 @@
                         } catch (Exeption $e) {
                             echo $e->error;
                         }
-                        header("Location:?v=v_lab&act=view");
+                        header("Location:?v=v_home&act=view");
                     } else {
                         include '404.php';
                     }
