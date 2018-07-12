@@ -6,19 +6,13 @@
         switch ($page) {
             case 'view':
 ?>
-
- 
-
-
                 <a href="?v=v_pegawai&act=add"><button class="btn btn-primary">Tambah Pegawai</button></a><br><br>
 <?php
                 require 'config/dbconn.php';
-                $query="SELECT * FROM tb_pegawai JOIN tb_lab ON tb_lab.id_lab=tb_pegawai.id_lab JOIN m_jabatan ON m_jabatan.id_jabatan=tb_pegawai.id_jabatan";
+                $query="SELECT * FROM tb_pegawai LEFT JOIN tb_lab ON tb_lab.id_lab=tb_pegawai.id_lab LEFT JOIN m_jabatan ON m_jabatan.id_jabatan=tb_pegawai.id_jabatan ORDER BY nip";
                 $result=$db->query($query);
                 if ($result->num_rows > 0) {
 ?>
-
-
                 <table class="table table-striped table-bordered table-hover">
                     <thead>
                         <tr>
@@ -37,7 +31,6 @@
                     <tbody>
 <?php
 
-
                     while ($data=$result->fetch_array(MYSQLI_BOTH)) {
 ?>
                         <tr>
@@ -48,8 +41,8 @@
                             <td><?php if ($data['jk_pg']=='l') {echo "Laki-laki";} else {echo "Perempuan";} ?>
                             <td><?php echo $data['no_telp_pg']; ?></td>
                             <td><?php echo $data['email_pg']; ?></td>
-                            <td><?php echo $data['nama_lab']; ?></td>
-                            <td><?php echo $data['nama_jabatan']; ?></td>
+                            <td><?php if ($data['nama_lab']==NULL) { echo "-"; } else { echo $data['nama_lab']; } ?></td>
+                            <td><?php if ($data['nama_jabatan']==NULL) { echo "-"; } else { echo $data['nama_jabatan']; } ?></td>
                             <td>
                                 <a href="?v=v_pegawai&act=edit&id=<?php echo $data['nip']; ?>"><button class="btn btn-success">Edit</button></a>
                                 <a href="?p=p_pegawai&act=delete&id=<?php echo $data['nip']; ?>"><button class="btn btn-danger">Delete</button></a>
@@ -58,7 +51,6 @@
 <?php
                     }
 ?>
-
                     </tbody>
                 </table>
 <?php
@@ -70,7 +62,6 @@
                 break;
             case 'add':
 ?>
-
                 <form action="?p=p_pegawai&act=add" method="post">
                     NIP: <input type="number" name="nip" required><br>
                     Nama: <input type="text" name="nama_pg"><br>
@@ -90,7 +81,7 @@
                                 $query="SELECT id_lab, nama_lab FROM tb_lab";
                                 $result=$db->query($query);
                                 while ($data=$result->fetch_array(MYSQLI_BOTH)) {
-                                    echo "<option value='".$data[0]."'>".$data[1]."</option>";
+                                    echo "<option value='".$data[0]."'>".$data['id_lab']." - ".$data[1]."</option>";
                                 }
                                 $db->close();
                             ?>
@@ -110,10 +101,8 @@
                     <a href="?v=v_pegawai&act=view" class="btn btn-danger">Batal</a>
                     <button type="reset">Reset</button>
                     <button type="submit" name="add_pg">Tambah</button>
-                </form>         
+                </form>
 <?php
-
-
                 break;
             case 'edit':
                 if (!isset($_GET['id'])) {
@@ -128,8 +117,6 @@
                     } else {
                         $data=$result->fetch_array(MYSQLI_BOTH);
 ?>
-
-
                         <form action="?p=p_pegawai&act=edit" method="post"><br>
                             NIP: <input type="text" name="nip" value="<?php echo $data['nip']; ?>"><br>
                             Nama: <input type="text" name="nama_pg" value="<?php echo $data['nama_pg']; ?>"><br>
@@ -151,7 +138,7 @@
                                         while ($data2=$result->fetch_array(MYSQLI_BOTH)) {
                                             echo "<option value='".$data2['id_lab']."'";
                                             if ($data2['id_lab']==$data['id_lab']) { echo "selected"; }
-                                            echo ">".$data2['nama_lab']."</option>";
+                                            echo ">".$data2['id_lab']." - ".$data2['nama_lab']."</option>";
                                         }
                                         $db->close();
                                     ?>
@@ -173,8 +160,6 @@
                             <a href="?v=v_pegawai&act=view" class="btn btn-danger">Batal</a>
                             <button type="submit" name="edit_pg">Edit</button>
                         </form>
-
-
 <?php
                     }
                 }
