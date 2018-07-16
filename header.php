@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -25,15 +25,15 @@
                    if ($rel=='v_lab' || $rel=="?v=v_home&act=view" ) 
                    {
                     
-                    echo "<a href='?v=v_lab&act=view&id=".$data['id_lab']."'>Lab ".$data['nama_lab']."</a>";
+                    echo "<a href='?v=v_lab&act=detail&id=".$data['id_lab']."'>Lab ".$data['nama_lab']."</a>";
                    }
                    else  if ($rel=='v_jadwal') { 
                       
-                       echo "<a href='?v=v_jadwal&act=view&id=".$data['id_lab']."'>Lab ".$data['nama_lab']."</a>";
+                       echo "<a href='?v=v_jadwal&act=detail&id=".$data['id_lab']."'>Lab ".$data['nama_lab']."</a>";
                    }
                    else 
                    {
-                      echo "<a href='?v=v_lab&act=view&id=".$data['id_lab']."'>Lab ".$data['nama_lab']."</a>";
+                      echo "<a href='?v=v_lab&act=detail&id=".$data['id_lab']."'>Lab ".$data['nama_lab']."</a>";
                    }
 
                 }
@@ -51,18 +51,18 @@
                 while ($data = $result->fetch_array(MYSQLI_BOTH)) 
                 {
                     $rel= $_GET['v'];
-                   if ($rel=='v_lab' || $rel=="?v=v_home&act=view") 
+                   if ($rel=='v_lab' || $rel=="?v=v_home&act=detail") 
                    {
                  
-                    echo "<a href='?v=v_lab&act=view&id=".$data['id_lab']."'>Lab ".$data['nama_lab']."</a>";
+                    echo "<a href='?v=v_lab&act=detail&id=".$data['id_lab']."'>Lab ".$data['nama_lab']."</a>";
                    }
                    else  if ($rel=='v_jadwal') { 
                       
-                       echo "<a href='?v=v_jadwal&act=view&id=".$data['id_lab']."'>Lab ".$data['nama_lab']."</a>";
+                       echo "<a href='?v=v_jadwal&act=detail&id=".$data['id_lab']."'>Lab ".$data['nama_lab']."</a>";
                    }
                    else
                    {
-                      echo "<a href='?v=v_lab&act=view&id=".$data['id_lab']."'>Lab ".$data['nama_lab']."</a>";
+                      echo "<a href='?v=v_lab&act=detail&id=".$data['id_lab']."'>Lab ".$data['nama_lab']."</a>";
                    }
 
                 }
@@ -92,9 +92,12 @@
                 <a class="navbar-brand" href="?v=v_home&act=view">Home</a>
             </div>
             <ul class="nav navbar-nav">
-                <!-- <li><a href="?v=v_lab&act=view">Lab</a></li> -->
+                <li><a href="?v=v_lab&act=view">Lab</a></li>
                 <li><a href="?v=v_pegawai&act=view">Pegawai</a></li>
-                <li><a href='?v=v_jadwal&act=view&id=c102'>Jadwal</a></li>
+                <li><a href='?v=v_jadwal&act=view'>Jadwal</a></li>
+                <li><a href='?v=v_master&act=view'>Master</a></li>
+                <li><a href='?v=v_matkul&act=view'>Matkul</a></li>
+                <li><a href='?v=v_penelitian&act=view'>Penelitian</a></li>
             </ul>
         </div>
         </nav>
