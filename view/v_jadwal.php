@@ -4,7 +4,15 @@
     } else {
         $page=$_GET['act'];
         switch ($page) {
-            case 'view':
+            case 'view':        
+?>
+                 <h1>Silahkan pilih lab di navigasi bar bagian kiri</h1>
+                <h3>Lorem ipsum dolor sit, amet consectetur adipisicing elit. In ratione cum consequuntur reprehenderit maxime nisi, facere, consectetur, deserunt culpa accusamus ex nesciunt nostrum doloribus facilis explicabo id! Laboriosam, provident numquam?</h3>
+                <a href="?v=v_lab&act=add"><button class="btn btn-primary">Tambah Lab
+                </button></a>
+<?php
+                break;
+            case 'detail':
                 if (!isset($_GET['id'])) {
                          include '404.php';
                     
