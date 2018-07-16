@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jul 16, 2018 at 02:27 PM
+-- Generation Time: Jul 16, 2018 at 02:48 PM
 -- Server version: 5.7.22-0ubuntu18.04.1
 -- PHP Version: 7.2.7-0ubuntu0.18.04.2
 
@@ -102,6 +102,19 @@ INSERT INTO `tb_lab` (`id_lab`, `nama_lab`, `id_lokasi`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `tb_lab_foto`
+--
+
+CREATE TABLE `tb_lab_foto` (
+  `id_lab` varchar(20) NOT NULL,
+  `filetype_lf` varchar(50) NOT NULL,
+  `filesize_lf` bigint(20) NOT NULL,
+  `filepath_lf` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `tb_lab_jadwal`
 --
 
@@ -180,15 +193,16 @@ CREATE TABLE `tb_pegawai` (
   `jk_pg` enum('l','p') DEFAULT NULL,
   `id_lab` varchar(25) DEFAULT NULL,
   `id_jabatan` int(11) DEFAULT NULL,
-  `password_pg` varchar(64) NOT NULL
+  `password_pg` varchar(64) NOT NULL,
+  `status_ag` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `tb_pegawai`
 --
 
-INSERT INTO `tb_pegawai` (`nip`, `nama_pg`, `alamat_pg`, `tgl_lahir_pg`, `tmp_lahir_pg`, `no_telp_pg`, `email_pg`, `jk_pg`, `id_lab`, `id_jabatan`, `password_pg`) VALUES
-(2110171010, 'Ahmad Jarir', 'Lumajang', '1999-03-14', 'Lumajang', '08888821', 'ajax.soft.en@gmail.com', 'l', 'C204', 1, '');
+INSERT INTO `tb_pegawai` (`nip`, `nama_pg`, `alamat_pg`, `tgl_lahir_pg`, `tmp_lahir_pg`, `no_telp_pg`, `email_pg`, `jk_pg`, `id_lab`, `id_jabatan`, `password_pg`, `status_ag`) VALUES
+(2110171010, 'Ahmad Jarir', 'Lumajang', '1999-03-14', 'Lumajang', '08888821', 'ajax.soft.en@gmail.com', 'l', 'C204', 1, '12', 0);
 
 -- --------------------------------------------------------
 
@@ -256,6 +270,12 @@ ALTER TABLE `tb_jurnal`
 ALTER TABLE `tb_lab`
   ADD PRIMARY KEY (`id_lab`),
   ADD KEY `id_lokasi` (`id_lokasi`);
+
+--
+-- Indexes for table `tb_lab_foto`
+--
+ALTER TABLE `tb_lab_foto`
+  ADD PRIMARY KEY (`id_lab`);
 
 --
 -- Indexes for table `tb_lab_jadwal`
@@ -354,6 +374,12 @@ ALTER TABLE `tb_jurnal`
 --
 ALTER TABLE `tb_lab`
   ADD CONSTRAINT `tb_lab_ibfk_1` FOREIGN KEY (`id_lokasi`) REFERENCES `m_lokasi` (`id_lokasi`);
+
+--
+-- Constraints for table `tb_lab_foto`
+--
+ALTER TABLE `tb_lab_foto`
+  ADD CONSTRAINT `tb_lab_foto_ibfk_1` FOREIGN KEY (`id_lab`) REFERENCES `tb_lab` (`id_lab`);
 
 --
 -- Constraints for table `tb_lab_jadwal`
