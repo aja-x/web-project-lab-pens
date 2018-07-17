@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jul 16, 2018 at 02:48 PM
+-- Generation Time: Jul 17, 2018 at 09:01 PM
 -- Server version: 5.7.22-0ubuntu18.04.1
 -- PHP Version: 7.2.7-0ubuntu0.18.04.2
 
@@ -119,11 +119,21 @@ CREATE TABLE `tb_lab_foto` (
 --
 
 CREATE TABLE `tb_lab_jadwal` (
+  `id_jw` int(11) NOT NULL,
   `id_lab` varchar(25) NOT NULL,
   `id_pengajar` int(11) NOT NULL,
+  `kelas_jw` varchar(100) NOT NULL,
   `semester_jw` varchar(20) NOT NULL,
-  `tgl_jw` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+  `tgl_jw` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `jam_akhir_jw` time NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `tb_lab_jadwal`
+--
+
+INSERT INTO `tb_lab_jadwal` (`id_jw`, `id_lab`, `id_pengajar`, `kelas_jw`, `semester_jw`, `tgl_jw`, `jam_akhir_jw`) VALUES
+(2, 'C105', 7, 'D3 IT A 2018', '1', '2018-01-01 06:00:00', '02:00:00');
 
 -- --------------------------------------------------------
 
@@ -171,10 +181,18 @@ CREATE TABLE `tb_modulkuliah` (
   `id_uploader` int(20) NOT NULL,
   `nama_modul` varchar(50) DEFAULT NULL,
   `tglupl_modul` timestamp NULL DEFAULT NULL,
+  `filename_modul` varchar(256) NOT NULL,
   `filetype_modul` varchar(50) NOT NULL,
   `filesize_modul` bigint(20) NOT NULL,
   `filepath_modul` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `tb_modulkuliah`
+--
+
+INSERT INTO `tb_modulkuliah` (`id_modul`, `id_matkul`, `id_uploader`, `nama_modul`, `tglupl_modul`, `filename_modul`, `filetype_modul`, `filesize_modul`, `filepath_modul`) VALUES
+('MD-0000002', 'MK-0000001', 2110171010, 'kliadha shduahd sdhadh dadha', '2018-07-17 03:29:31', 'OAI_SQL10.pdf', 'application/pdf', 188338, 'files/modul/760a3bb8f96c0f3d9c78ada79f3aa9f2.pdf');
 
 -- --------------------------------------------------------
 
@@ -193,7 +211,7 @@ CREATE TABLE `tb_pegawai` (
   `jk_pg` enum('l','p') DEFAULT NULL,
   `id_lab` varchar(25) DEFAULT NULL,
   `id_jabatan` int(11) DEFAULT NULL,
-  `password_pg` varchar(64) NOT NULL,
+  `password_pg` varchar(256) NOT NULL,
   `status_ag` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -202,6 +220,7 @@ CREATE TABLE `tb_pegawai` (
 --
 
 INSERT INTO `tb_pegawai` (`nip`, `nama_pg`, `alamat_pg`, `tgl_lahir_pg`, `tmp_lahir_pg`, `no_telp_pg`, `email_pg`, `jk_pg`, `id_lab`, `id_jabatan`, `password_pg`, `status_ag`) VALUES
+(677677, 'hhdf', 'hjh', '1996-03-12', 'hj', '787878', 'ajax@g.com', 'l', 'C105', 1, '3627909a29c31381a071ec27f7c9ca97726182aed29a7ddd2e54353322cfb30abb9e3a6df2ac2c20fe23436311d678564d0c8d305930575f60e2d3d048184d79', 0),
 (2110171010, 'Ahmad Jarir', 'Lumajang', '1999-03-14', 'Lumajang', '08888821', 'ajax.soft.en@gmail.com', 'l', 'C204', 1, '12', 0);
 
 -- --------------------------------------------------------
@@ -240,6 +259,13 @@ CREATE TABLE `tb_pengajar` (
   `nip` int(20) NOT NULL,
   `id_matkul` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `tb_pengajar`
+--
+
+INSERT INTO `tb_pengajar` (`id_pengajar`, `nip`, `id_matkul`) VALUES
+(7, 677677, 'MK-0000001');
 
 --
 -- Indexes for dumped tables
@@ -281,8 +307,9 @@ ALTER TABLE `tb_lab_foto`
 -- Indexes for table `tb_lab_jadwal`
 --
 ALTER TABLE `tb_lab_jadwal`
-  ADD PRIMARY KEY (`id_lab`),
-  ADD KEY `id_pengajar` (`id_pengajar`);
+  ADD PRIMARY KEY (`id_jw`),
+  ADD KEY `id_pengajar` (`id_pengajar`),
+  ADD KEY `id_lab` (`id_lab`) USING BTREE;
 
 --
 -- Indexes for table `tb_lab_pinjam`
@@ -354,10 +381,16 @@ ALTER TABLE `m_lokasi`
   MODIFY `id_lokasi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
+-- AUTO_INCREMENT for table `tb_lab_jadwal`
+--
+ALTER TABLE `tb_lab_jadwal`
+  MODIFY `id_jw` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
 -- AUTO_INCREMENT for table `tb_pengajar`
 --
 ALTER TABLE `tb_pengajar`
-  MODIFY `id_pengajar` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_pengajar` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- Constraints for dumped tables
