@@ -19,7 +19,9 @@
                     $jk_pg=$_POST['jk_pg'];
                     $id_lab=$_POST['id_lab'];
                     $id_jabatan=$_POST['id_jabatan'];
-                    $query="INSERT INTO tb_pegawai VALUES ('$nip', '$nama_pg', '$alamat_pg', '$tgl_lahir_pg', '$tmp_lahir_pg', '$no_telp_pg', '$email_pg', '$jk_pg', '$id_lab', '$id_jabatan')";
+                    $password_ag=hash('sha512', '12345');
+                    $status_ag=0;
+                    $query="INSERT INTO tb_pegawai VALUES ('$nip', '$nama_pg', '$alamat_pg', '$tgl_lahir_pg', '$tmp_lahir_pg', '$no_telp_pg', '$email_pg', '$jk_pg', '$id_lab', '$id_jabatan', '$password_ag', '$status_ag')";
                     try {
                         $db->query($query);
                     } catch (Exeption $e) {
