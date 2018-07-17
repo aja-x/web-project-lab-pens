@@ -206,8 +206,53 @@
                         } else {
                             echo "Data not found<br>";
                         }
-                        $db->close();
 ?>
+                    <h4>Jurnal Penelitian</h4>
+                         <a href="?v=v_penelitian&act=tmbjnrl&id=<?php echo $data['id_pn']; ?>"><button class="btn btn-primary">Tambah Jurnal </button></a><br><br>
+<?php
+                        require 'config/dbconn.php';
+                        $query="SELECT * FROM tb_jurnal JOIN tb_penelitian ON tb_penelitian.id_pn=tb_jurnal.id_pn WHERE tb_penelitian.id_pn='$id'";
+                        $result=$db->query($query);
+                        if ($result->num_rows > 0) {
+?>
+                            <table class="table table-striped table-bordered table-hover">
+                                <thead>
+                                    <tr>
+                            
+                                        <th>ID Jurnal</th>
+                                        <th>ID Peneliti</th>
+                                        <th>Nama Jurnal </th>
+                                        <th>Tanggal Uploud Jurnal</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+<?php
+                                    while ($data=$result->fetch_array(MYSQLI_BOTH)) {
+?>
+                                            <tr>
+                                                <td><?php echo $data['id_jn']; ?></td>
+                                                <td><?php echo $data['id_pn']; ?></td>
+                                                <td><?php echo $data['nama_jn']; ?></td>
+                                                <td><?php echo $data['tglupl_jn']?></td>
+                                                <td>
+                                                    <a href="?p=p_penelitian&act=download_jn&id=<?php echo $data['id_jn']; ?>"><button class="btn btn-success">Download</button></a>
+                                                    <a href="?p=p_penelitian&act=delete_jn&id=<?php echo $data['id_jn']; ?>"><button class="btn btn-danger">Delete</button></a>
+                                                </td>
+                                            </tr>
+<?php
+                                    }
+?>
+                                </tbody>
+                            </table>
+<?php
+                        } else {
+                            echo "Data not found<br>";
+                        }
+                         $db->close();
+?>
+
+
+                       
                     </div>
                     </div>
 <?php
@@ -290,6 +335,28 @@
                     }
                 }
                 break;
+?>
+<?php
+                case 'tmbjnrl':
+                $id=autoID('JN', 'tb_jurnal', 'id_jn');
+                 if (!isset($_GET['id'])) {
+                    include '404.php';
+                } else {
+                $id2=$_GET['id'];
+?>
+                 <form action="?p=p_penelitian&act=add_jn" method="post" enctype="multipart/form-data" >
+                  ID Penelitian: <input type="text" name="id_pn" value="<?php echo "$id2";?>" readonly ><br>
+                  ID Jurnal: <input type="text" name="id_jn" value="<?php echo $id; ?>" required readonly><br>
+                  Nama Jurnal: <input type="text" name="nama_jn"><br>
+                  Tanggal Uploud Jurnal: <input type="date" name="tglupl_jn"><br>
+                  Pilih file (.pdf): <input type="file" name="file_jn" accept=".pdf" required>
+                 <a href="?v=v_penelitian&act=view" class="btn btn-danger">Batal</a>
+                    <button type="reset">Reset</button>
+                 <button type="submit" name="add_jn">Tambah</button>
+
+<?php
+                }
+                    break;
 ?>
 <?php
 
