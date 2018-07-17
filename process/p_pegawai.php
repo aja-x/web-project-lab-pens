@@ -31,6 +31,23 @@
                     header("Location:?v=v_pegawai&act=view");
                 }
                 break;
+            case 'add_dosen':
+                if (!isset($_POST['add_dosen'])) {
+                    include '404.php';
+                } else {
+                    require 'config/dbconn.php';
+                    $nip=$_POST['nip'];
+                    $id_matkul=$_POST['id_matkul'];
+                    $query="INSERT INTO tb_pengajar(nip, id_matkul)VALUES ('$nip', '$id_matkul')";
+                    try {
+                        $db->query($query);
+                    } catch (Exeption $e) {
+                        echo $e->error;
+                    }
+                    $db->close();
+                    header("Location:?v=v_pegawai&act=view");
+                }
+                break;
             case 'edit':
                 if (!isset($_POST['edit_pg'])) {
                     include '404.php';
@@ -66,6 +83,28 @@
                     $result=$db->query($query);
                     if($result->num_rows===1) {
                         $query="DELETE FROM tb_pegawai WHERE nip='$id'";
+                        try {
+                            $db->query($query);
+                        } catch (Exeption $e) {
+                            echo $e->error;
+                        }
+                        header("Location:?v=v_pegawai&act=view");
+                    } else {
+                        include '404.php';
+                    }
+                    $db->close();
+                }
+                break;
+            case 'delete_dosen':
+                if (!isset($_GET['id'])) {
+                    include '404.php';
+                } else {
+                    require 'config/dbconn.php';
+                    $id=$_GET['id'];
+                    $query="SELECT * FROM tb_pengajar WHERE id_pengajar='$id'";
+                    $result=$db->query($query);
+                    if($result->num_rows===1) {
+                        $query="DELETE FROM tb_pengajar WHERE id_pengajar='$id'";
                         try {
                             $db->query($query);
                         } catch (Exeption $e) {
