@@ -23,16 +23,16 @@
   	<br>
   	<br>
   	<div class="col-md-4 col-md-offset-4 mb-4 jumbotron animated bounceIn" style="text-align: center">
-	<form action="validation.php" id="login" name="login" method="POST" class="form-login">
+	<form action="index.php?p=p_login&act=login" id="login" name="login" method="POST" class="form-login">
 			<img class="mb-4" width="80" height="80" src="asset/img/login.png">
 			<h2>EEPIS Informatics Laboratorium</h2>
 			<br>
 			<div class="form-label-group">
-				<input class="form-control" type="text" name="email" id="email" required="yes" placeholder="Email *" autofocus="yes" autocomplete="no" max="30">
+				<input class="form-control" type="text" name="email" id="email" required="yes" placeholder="Email *" autofocus="yes" autocomplete="no">
 				<label for="userid"></label>
 			</div>
 			<div class="form-label-group"> 
-				<input class="form-control" type="password" name="password" required="yes" id="password" placeholder="Password *" max="30">
+				<input class="form-control" type="password" name="password" required="yes" id="password" placeholder="Password *">
 				<label for="password"></label>
 			</div>
 			<button class="btn btn-info btn-primary btn-block" type="submit" name="login" id="login">LOGIN</button>
