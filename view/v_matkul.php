@@ -6,19 +6,29 @@
         switch ($page) {
             case 'view':
 ?>
-                <a href="?v=v_matkul&act=add"><button class="btn btn-primary">Tambah Matkul</button></a><br><br>
+    <div class="container container-fluid">
+                
 <?php
                 require 'config/dbconn.php';
                 $query="SELECT * FROM tb_matakuliah";
                 $result=$db->query($query);
                 if ($result->num_rows > 0) {
 ?>
-                <table class="table table-striped table-bordered table-hover">
+<!DOCTYPE html>
+<html>
+<head>
+    <script type="text/javascript" src="jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="asset/dataTabel/js/jquery.dataTables.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="asset/dataTabel/css/jquery.dataTables.min.css">
+</head>
+<body>
+                <table  id="table_id" class="table table-striped table-bordered table-hover responsive display" style="width:100% ;font-family: candara; text-align=center">
                     <thead>
                         <tr>
                             <th>ID Matkul</th>
                             <th>Nama</th>
                             <th>SKS</th>
+                            <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -89,4 +99,7 @@
                 break;
         }
     }
+
 ?>
+    <a href="?v=v_matkul&act=add"><button class="btn btn-primary">Tambah Matkul</button></a><br><br>
+

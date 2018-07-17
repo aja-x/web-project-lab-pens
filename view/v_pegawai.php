@@ -1,3 +1,4 @@
+<html>
 <?php
     if (!isset($_GET['act'])) {
         include '404.php';
@@ -6,7 +7,8 @@
         switch ($page) {
             case 'view':
 ?>
-                <a href="?v=v_pegawai&act=add"><button class="btn btn-primary">Tambah Pegawai</button></a>
+        <div class="container container-fluid">
+            <a href="?v=v_pegawai&act=add"><button class="btn btn-primary">Tambah Pegawai</button></a>
                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Tambah Dosen</button><br><br>
 <?php
                 require 'config/dbconn.php';
@@ -14,7 +16,11 @@
                 $result=$db->query($query);
                 if ($result->num_rows > 0) {
 ?>
-                <table class="table table-striped table-bordered table-hover">
+
+<body>
+	<div class="container container-fluid">
+                <table id="table_id" class="table table-striped table-bordered table-hover responsive display" style="width:100% ;font-family: candara; text-align=center">
+                   <table class="table table-striped table-bordered table-hover">
                     <thead>
                         <tr>
                             <th>NIP</th>
@@ -152,32 +158,58 @@
                 break;
             case 'add':
 ?>
-                <form action="?p=p_pegawai&act=add" method="post">
-                    NIP: <input type="number" name="nip" required><br>
-                    Nama: <input type="text" name="nama_pg"><br>
-                    Alamat: <input type="text" name="alamat_pg"><br>
-                    TTL: <input type="text" name="tmp_lahir_pg">, <input type="date" name="tgl_lahir_pg"><br>
-                    Jenis Kelamin: 
-                        <select name="jk_pg">
+			<div class="col-md-4 col-md-offset-4 mb-4">
+				<font size="4" face="Agency FB"><center>Form Tambah Pegawai</center></font>
+				
+                <form action="?p=p_pegawai&act=add" method="post" align="center">
+					
+					<div class="form-label-group">
+						<input class="form-control" type="number" name="nip" required="yes" placeholder="NIP" autofocus="yes" autocomplete="no" max="20">
+					</div>
+					<br>
+					<div class="form-label-group"> 
+						<input class="form-control" type="text" name="nama_pg" required="yes" placeholder="Nama" autofocus="yes" autocomplete="no" max="30">
+					</div>
+					<br>
+					<div class="form-label-group"> 
+						<input class="form-control" type="text" name="alamat_pg" required="yes" placeholder="Alamat" autofocus="yes" autocomplete="no" max="30">
+					</div>
+					<br>
+					<div class="form-label-group"> 
+						<input class="form-control" type="text" name="tmp_lahir_pg">, <input type="date" name="tgl_lahir_pg">
+					</div>
+					<br>
+					<div class="form-label-group" placeholder="Jenis Kelamin"> 
+                        <select name="jk_pg" class="form-control">
                             <option value="l">Laki-laki</option>
                             <option value="p">Perempuan</option>
-                        </select><br>
-                    No. Telp: <input type="number" name="no_telp_pg"><br>
-                    Email: <input type="email" name="email_pg"><br>
-                    Lab:
-                        <select name="id_lab">
+                        </select>
+					</div>
+					<br>
+					<div class="form-label-group"> 
+						<input class="form-control" type="number" name="no_telp_pg" autocomplete="no" placeholder="No. Telepon">
+					</div>
+					<br>
+					<div class="form-label-group"> 
+						<input class="form-control" type="email" name="email_pg" placeholder="Email">
+					</div>
+					<br>
+					<div class="form-label-group" placeholder="Laboratorium"> 
+                        <select name="id_lab" class="form-control">
                             <?php
                                 require 'config/dbconn.php';
                                 $query="SELECT id_lab, nama_lab FROM tb_lab";
                                 $result=$db->query($query);
                                 while ($data=$result->fetch_array(MYSQLI_BOTH)) {
-                                    echo "<option value='".$data[0]."'>".$data['id_lab']." - ".$data[1]."</option>";
+                                    echo "<option value='".$data[0]."'>".$data[1]."</option>";
                                 }
                                 $db->close();
                             ?>
-                        </select><br>
-                    Jabatan: 
-                        <select name="id_jabatan">
+                        </select>
+					</div>
+					<br>
+                    <div class="form-label-group" placeholder="Jabatan"> 
+                        <select name="id_jabatan" class="form-control">
                             <?php
                                 require 'config/dbconn.php';
                                 $query="SELECT * FROM m_jabatan";
@@ -187,11 +219,15 @@
                                 }
                                 $db->close();
                             ?>
-                        </select><br>
+                        </select>
+					</div>
+					<br>
                     <a href="?v=v_pegawai&act=view" class="btn btn-danger">Batal</a>
-                    <button type="reset">Reset</button>
-                    <button type="submit" name="add_pg">Tambah</button>
+                    <span class="btn btn-warning" type="reset">Reset</span>
+                    <span class="btn btn-success" type="submit" name="add_pg">Tambah</span>
+				<br>
                 </form>
+					</div>
 <?php
                 break;
             case 'edit':
@@ -228,7 +264,7 @@
                                         while ($data2=$result->fetch_array(MYSQLI_BOTH)) {
                                             echo "<option value='".$data2['id_lab']."'";
                                             if ($data2['id_lab']==$data['id_lab']) { echo "selected"; }
-                                            echo ">".$data2['id_lab']." - ".$data2['nama_lab']."</option>";
+                                            echo ">".$data2['nama_lab']."</option>";
                                         }
                                         $db->close();
                                     ?>
@@ -258,5 +294,9 @@
                 include '404.php';
                 break;
         }
+		
     }
 ?>
+
+
+
