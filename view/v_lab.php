@@ -17,7 +17,8 @@
                 } else {
                     require 'config/dbconn.php';
                     $id=$_GET['id'];
-                    $query="SELECT * FROM tb_lab JOIN m_lokasi ON m_lokasi.id_lokasi=tb_lab.id_lokasi WHERE id_lab='$id'";
+                    $query="SELECT * FROM tb_lab JOIN m_lokasi ON m_lokasi.id_lokasi=tb_lab.id_lokasi   WHERE id_lab='$id'";
+                    $query2="SELECT * FROM tb_lab_foto  WHERE id_lab='$id'";
                     $result=$db->query($query);
                     if ($result->num_rows != 1) {
                         include '404.php';
@@ -49,10 +50,20 @@
                             <a href="?p=p_lab&act=delete&id=<?php echo $data[0]; ?>"><button class="btn btn-danger">Delete</button></a>
                         </div>
 
+<?php
+                    $result=$db->query($query2);
+                    if ($result->num_rows != 1) {
+                        include '404.php';
+                    } else {
+                        $data=$result->fetch_array(MYSQLI_BOTH);
+?>
                         <div class="col-lg-6 jumbotron">
-                            <h3>Area buat foto lab</h3>
+
+                       <img src="img/lab/<?php echo $data['filename_if'];?>"/>
                         </div>
+                      
                     </div>
+  <?php } ?>
                     <div class="container col-lg-12">
                         <h4>Penghuni Lab</h4>
                         <!-- <a href="?v=v_pegawai&act=add&id=<?php //echo $data['id_lab']; ?>"><button class="btn btn-primary">Tambah Penghuni</button></a> -->
@@ -165,7 +176,7 @@
                 break;
             case 'add':
 ?>
-                <form action="?p=p_lab&act=add" method="post"><br>
+                <form action="?p=p_lab&act=add" method="post" enctype="multipart/form-data" ><br>
                     ID Lab: <input type="text" name="id_lab"><br>
                     Nama Lab: <input type="text" name="nama_lab"><br>
                     Lokasi:
@@ -179,6 +190,7 @@
                                 }
                             ?>
                         </select><br>
+                    foto lab :<input type="hidden" name="MAX_FILE_SIZE" value="2000000"><input name="userfile" type="file" class="box" id="userfile"> 
                     <a href="?v=v_lab&act=view" class="btn btn-danger">Batal</a>
                     <button type="reset">Reset</button>
                     <button type="submit" name="add_lab">Tambah</button>
