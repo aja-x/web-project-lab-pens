@@ -9,13 +9,18 @@
                     include '404.php';
                 } else {
                     require 'config/dbconn.php';
-                    $id_jadwal=$_POST['id_jadwal'];
                     $id_lab=$_POST['id_lab'];
-                    $id_matkul=$_POST['id_matkul'];
+                    $id_pengajar=$_POST['id_pengajar'];
+                    $kelas_jw=$_POST['kelas_jw'];
+                    $angkatan_jw=$_POST['angkatan_jw'];
+                    $kelas_jw=$kelas_jw." ".$angkatan_jw;
                     $semester_jw=$_POST['semester_jw'];
-                    $tgl_jw=$_POST['tgl_jw'];
-                   
-                    $query="INSERT INTO tb_lab_jadwal VALUES ('$id_jadwal', '$id_lab', '$id_matkul', '$semester_jw', '$tgl_jw')";
+                    $tahun_jw=$_POST['tahun_jw'];
+                    $time_jw=$_POST['time_jw'];
+                    $time_akhir_jw=$_POST['time_akhir_jw'];
+                    $tgl_jw=$tahun_jw."-01-01 ".$time_jw.":00";
+
+                    $query="INSERT INTO tb_lab_jadwal(id_lab, id_pengajar, kelas_jw, semester_jw, tgl_jw, jam_akhir_jw) VALUES ('$id_lab','$id_pengajar', '$kelas_jw', '$semester_jw', '$tgl_jw', '$time_akhir_jw')";
                     try {
                         $db->query($query);
                     } catch (Exeption $e) {
