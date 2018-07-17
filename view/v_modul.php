@@ -6,14 +6,14 @@
         switch ($page) {
             case 'view':
 ?>
-                <a href="?v=v_modul&act=add"><button class="btn btn-primary">Tambah Modul</button></a><br><br>
+<div class="container container-fluid">
 <?php
                 require 'config/dbconn.php';
                 $query="SELECT * FROM tb_modulkuliah JOIN tb_matakuliah ON tb_modulkuliah.id_matkul=tb_matakuliah.id_matkul JOIN tb_pegawai ON tb_modulkuliah.id_uploader=tb_pegawai.nip";
                 $result=$db->query($query);
                 if ($result->num_rows > 0) {
 ?>
-                <table class="table table-striped table-bordered table-hover">
+                <table id="table_id" class="table table-striped table-bordered table-hover display">
                     <thead>
                         <tr>
                             <th>ID Modul</th>
@@ -123,3 +123,4 @@
         }
     }
 ?>
+ <a href="?v=v_modul&act=add"><button class="btn btn-primary">Tambah Modul</button></a><br><br>

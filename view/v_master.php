@@ -6,7 +6,8 @@
         switch ($page) {
             case 'view':
 ?>
-                <a href="?v=v_master&act=add_jabatan"><button class="btn btn-primary">Tambah Jabatan</button></a><br><br>
+        <div class="container container-fluid">
+               <br><br>
 <?php
                 require 'config/dbconn.php';
                 $query="SELECT * FROM m_jabatan";
@@ -14,11 +15,16 @@
                 $i=1;
                 if ($result->num_rows > 0) {
 ?>
-                <table class="table table-striped table-bordered table-hover">
-                    <thead>
+<!DOCTYPE html>
+<html>
+<body>
+
+                <table id="table_id" class="table table-striped table-bordered table-hover responsive display" style="width:100% ;font-family: candara; text-align=center">
+                    <thead >
                         <tr>
                             <th>No. </th>
                             <th>Nama</th>
+                            <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -45,7 +51,8 @@
                     echo "Data not found<br>";
                 }
 ?>
-                <a href="?v=v_master&act=add_lokasi"><button class="btn btn-primary">Tambah Lokasi</button></a><br><br>
+             <a href="?v=v_master&act=add_jabatan"><button class="btn btn-primary">Tambah Jabatan</button></a>
+                <br><br>
 <?php
                 require 'config/dbconn.php';
                 $query="SELECT * FROM m_lokasi";
@@ -53,11 +60,12 @@
                 $i=1;
                 if ($result->num_rows > 0) {
 ?>
-                <table class="table table-striped table-bordered table-hover">
+                <table  id="table_id" class="table table-striped table-bordered table-hover responsive display" style="width:100% ;font-family: candara; text-align=center">
                     <thead>
                         <tr>
                             <th>No. </th>
                             <th>Nama</th>
+                            <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -157,3 +165,4 @@
         }
     }
 ?>
+<a href="?v=v_master&act=add_lokasi"><button class="btn btn-primary">Tambah Lokasi</button></a>
